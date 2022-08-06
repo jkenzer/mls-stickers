@@ -1,3 +1,6 @@
+.DS_Store
+public/logos/*
+public/teamlogos.json
 # Logs
 logs
 *.log
