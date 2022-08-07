@@ -1,7 +1,6 @@
 const wiki = require("wikijs").default;
 const fs = require("fs");
 const fetch = require("node-fetch");
-const url = require("url");
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -23,7 +22,8 @@ let teamToLogo = [];
 async function saveImage(team, url) {
   const imgUrl = new URL(url);
   const paths = imgUrl.pathname.split("/");
-  const fileName = paths[paths.length - 1];
+  let fileName = paths[paths.length - 1];
+  fileName = fileName.replace("%28", "(").replace("%29", ")");
   const res = await fetch(url);
   console.log("getting image for", team);
   //TODO: Join path for OS compatibility

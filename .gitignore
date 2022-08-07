@@ -1,6 +1,4 @@
 .DS_Store
-public/logos/*.svg
-public/teamlogos.json
 # Logs
 logs
 *.log
