@@ -5,6 +5,7 @@ const height = window.innerHeight;
 // TODO: Changable background
 // TODO: More leagues
 // TODO: Favorite Team
+// TODO: Outline the svg instead of the img
 
 const favorite = "Portland_Timbers";
 fetch("./teamlogos.json").then((res) => {
