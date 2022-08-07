@@ -9,7 +9,7 @@ function delay(ms) {
 function writeJSONFile(teamLogos) {
   //TODO: Change to path.join
   fs.writeFile(
-    "./Public/teamlogos.json",
+    "./src/assets/teamlogos.json",
     JSON.stringify(teamLogos, null, 2),
     (error) => {
       if (error) throw error;
