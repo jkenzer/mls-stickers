@@ -1,5 +1,6 @@
 <script>
   import teamlogos from "./assets/teamlogos.json";
+  import Selector from "./Selector.svelte";
 
   function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -17,12 +18,13 @@
 
   const width = window.innerWidth;
   const height = window.innerHeight;
-  const favorite = "Portland_Timbers";
+  let favorite = "Portland_Timbers";
 
-  // TODO: Changable background
   // TODO: More leagues
-  // TODO: Favorite Team with special display
   // TODO: Outline the svg instead of the img
+  // TODO: Store the favorite and background to localstorage
+  // TODO: Read the favorite and background from localstorage
+  // TODO: Hide the selector unless the settings icon is clicked
 
   // 4 rows of 7
   const colspacing = width / 7;
@@ -47,13 +49,30 @@
       style,
     };
   });
+
+  function handleBackgroundChange(event) {
+    let background = document.getElementById("background");
+    background.style.backgroundImage = `url('/${event.detail.file}')`;
+  }
+  function handleFavoriteTeam(event) {
+    favorite = event.detail.team;
+  }
 </script>
 
 <main>
+  <div class="selector">
+    <Selector
+      teams={teamLogos}
+      currentFavorite={favorite}
+      on:favoriteTeam={handleFavoriteTeam}
+      on:backgroundChange={handleBackgroundChange}
+    />
+  </div>
   {#each stickers as sticker (sticker.team)}
     <img
       src={sticker.src}
       class="logo"
+      class:favorite={sticker.team === favorite}
       alt={sticker.team}
       style={sticker.style}
     />
@@ -61,4 +80,9 @@
 </main>
 
 <style>
+  .favorite {
+    filter: drop-shadow(-3px 3px 3px darkgrey);
+    max-width: 250px;
+    max-height: 250px;
+  }
 </style>

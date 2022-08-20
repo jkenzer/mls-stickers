@@ -1,5 +1,5 @@
 body {
-  background-image: url('./assets/lined-paper.jpg');
+  background-image: url("/lined-paper.jpg");
 }
 
 .logo {
@@ -11,4 +11,16 @@ body {
   background-color: white;
   filter: drop-shadow(-1px 1px 1px lightgray);
   position: absolute;
+}
+
+.selector {
+  /* display: none; */
+  position: absolute;
+  top: 10px;
+  right: 100px;
+  padding: 10px 15px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  background: white;
+  z-index: 100;
 }
