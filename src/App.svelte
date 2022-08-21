@@ -20,13 +20,13 @@
 
   const width = window.innerWidth;
   const height = window.innerHeight;
-  let favorite = "Portland_Timbers";
+  let favorite = localStorage.getItem("favoriteTeam");
+  let background = localStorage.getItem("background") || "lined-paper.jpg";
+  let bodyBackground = document.getElementById("background");
+  bodyBackground.style.backgroundImage = `url('/${background}')`;
 
   // TODO: More leagues
   // TODO: Outline the svg instead of the img
-  // TODO: Store the favorite and background to localstorage
-  // TODO: Read the favorite and background from localstorage
-  // TODO: Hide the selector unless the settings icon is clicked
 
   // 4 rows of 7
   const colspacing = width / 7;
@@ -53,11 +53,14 @@
   });
 
   function handleBackgroundChange(event) {
-    let background = document.getElementById("background");
-    background.style.backgroundImage = `url('/${event.detail.file}')`;
+    let backgroundImg = document.getElementById("background");
+    backgroundImg.style.backgroundImage = `url('/${event.detail.file}')`;
+    localStorage.setItem("background", event.detail.file);
+    background = event.detail.file;
   }
   function handleFavoriteTeam(event) {
     favorite = event.detail.team;
+    localStorage.setItem("favoriteTeam", favorite);
   }
   function showSelector() {
     visible = !visible;
@@ -76,6 +79,7 @@
       <div class="settings-selector" transition:fade>
         <Selector
           teams={teamLogos}
+          currentBackground={background}
           currentFavorite={favorite}
           on:favoriteTeam={handleFavoriteTeam}
           on:backgroundChange={handleBackgroundChange}

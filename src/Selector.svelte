@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   export let teams;
   export let currentFavorite;
+  export let currentBackground;
 
   const dispatch = createEventDispatcher();
 
@@ -10,7 +11,7 @@
     { file: "marble-texture.jpg", text: `Marble` },
   ];
 
-  let selectedBg = backgrounds[0];
+  let selectedBg = backgrounds.find((b) => b.file == currentBackground);
   let selectedTeam = currentFavorite;
 
   const teamsOptions = teams.sort((a, b) => {
