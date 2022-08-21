@@ -1,6 +1,8 @@
 <script>
   import teamlogos from "./assets/teamlogos.json";
   import Selector from "./Selector.svelte";
+  import { fade } from "svelte/transition";
+  let visible = false;
 
   function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -57,16 +59,29 @@
   function handleFavoriteTeam(event) {
     favorite = event.detail.team;
   }
+  function showSelector() {
+    visible = !visible;
+  }
 </script>
 
 <main>
   <div class="selector">
-    <Selector
-      teams={teamLogos}
-      currentFavorite={favorite}
-      on:favoriteTeam={handleFavoriteTeam}
-      on:backgroundChange={handleBackgroundChange}
+    <img
+      src="settings.svg"
+      alt="settings"
+      class="settings-icon"
+      on:click={showSelector}
     />
+    {#if visible}
+      <div class="settings-selector" transition:fade>
+        <Selector
+          teams={teamLogos}
+          currentFavorite={favorite}
+          on:favoriteTeam={handleFavoriteTeam}
+          on:backgroundChange={handleBackgroundChange}
+        />
+      </div>
+    {/if}
   </div>
   {#each stickers as sticker (sticker.team)}
     <img
@@ -84,5 +99,15 @@
     filter: drop-shadow(-3px 3px 3px darkgrey);
     max-width: 250px;
     max-height: 250px;
+  }
+  .settings-icon {
+    width: 30px;
+    cursor: pointer;
+  }
+  .selector {
+    text-align: right;
+  }
+  .settings-selector {
+    margin-top: 15px;
   }
 </style>
