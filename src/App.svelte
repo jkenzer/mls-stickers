@@ -2,6 +2,7 @@
   import teamlogos from "./assets/teamlogos.json";
   import Selector from "./Selector.svelte";
   import { fade } from "svelte/transition";
+  import { arrayMoveImmutable } from "array-move";
   let visible = false;
 
   function shuffleArray(arr) {
@@ -34,7 +35,15 @@
   let rowY = -rowspacing;
 
   const teamLogos = shuffleArray(teamlogos);
-  const stickers = teamLogos.map((logo, idx) => {
+  const favoriteIndex = teamLogos.findIndex((s) => s.team === favorite);
+  const midIndex = Math.floor(teamLogos.length / 2);
+  const newStickers = arrayMoveImmutable(
+    teamLogos,
+    favoriteIndex,
+    midIndex - 4
+  );
+
+  const stickers = newStickers.map((logo, idx) => {
     let xPos = (idx % 7) * colspacing + random(-35, 35);
     if (idx % 7 == 0) {
       rowY += rowspacing;
@@ -103,6 +112,7 @@
     filter: drop-shadow(-3px 3px 3px darkgrey);
     max-width: 250px;
     max-height: 250px;
+    z-index: 100 !important;
   }
   .settings-icon {
     width: 30px;
